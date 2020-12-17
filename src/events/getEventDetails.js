@@ -22,8 +22,8 @@ const findMissingEvents = async (eventList, existingEventDetails) => {
 
 
 const getEventListDetails = async (db, newEventList = []) => {
-    const existingEvents = await firebase.getEventList(db)
-    const existingEventDetails = await firebase.getEventDetails(db)
+    const existingEvents = await firebase.getAllEventList(db)
+    const existingEventDetails = await firebase.getAllEventDetails(db)
 
     let missingEvents
 

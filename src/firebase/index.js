@@ -1,7 +1,7 @@
 const logger = require('../logger')
 const _ = require('lodash')
 
-const getEventList = async (db) => {
+const getAllEventList = async (db) => {
     let eventResults = []
     
     const eventsRef = db.collection('Events')
@@ -28,7 +28,7 @@ const getEventList = async (db) => {
     }
 }
 
-const getEventDetails = async (db) => {
+const getAllEventDetails = async (db) => {
     let eventDetailsResults = []
     
     const eventDetailsRef = db.collection('Event Details')
@@ -81,9 +81,23 @@ const addEventDetails = async (events, db) => {
     })
 }
 
+const addFighterRecords = async (fightersRecords, db) => {
+    logger().info('Adding fighter records to the fighterDb')
+    _.forEach(fightersRecords, async (record) => {
+        try {
+            await db.collection('Fighter Records').add({...record})
+            logger().info(`Successfully added fighter record document to Events collection`)
+
+        } catch (err) {
+            logger().error(`Unable to add fighter record details to Fighter Records collection: ${err}`);
+        }
+    })
+}
+
 module.exports = {
     addEventList,
     addEventDetails,
-    getEventList,
-    getEventDetails
+    addFighterRecords,
+    getAllEventList,
+    getAllEventDetails
 }

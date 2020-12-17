@@ -52,9 +52,23 @@ const getEventDetails = async (events) => {
     return _.filter(eventDetailsArray, show => show.summaries.length > 0)
 }
 
+const getFighterRecord = async (id) => {
+    const url = `http://api.sportradar.us/ufc/trial/v2/en/competitors/${id}/profile.json?api_key=${key}`
+    try {
+        const { data } = await axios.get(url)
+    
+        logger().info(`Successfully got ${id} fight record`)
+
+        return data
+
+    } catch (err) {
+        logger().error(`Unable to get fighter record from SportsRader for ${id}: ${err}`);
+    }
+} 
 
 
 module.exports = {
     getEventsList,
-    getEventDetails
+    getEventDetails,
+    getFighterRecord
 }

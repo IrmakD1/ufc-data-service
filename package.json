@@ -6,6 +6,7 @@
   "scripts": {
     "get-events": "node src/getEvents.js",
     "get-event-details": "node src/getEventDetails.js",
+    "get-fighters": "node src/getfighterRecords.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
