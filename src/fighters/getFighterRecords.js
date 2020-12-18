@@ -2,6 +2,7 @@ const _ = require('lodash')
 const firebase = require('../firebase')
 const sportsRadar = require('../sportsRadar')
 const logger = require('../logger')
+const { wait } = require('../utils')
 
 const findEventDetails = (eventDetails, eventId) => {
     const show = _.map(eventDetails, show => {
@@ -15,12 +16,6 @@ const findEventDetails = (eventDetails, eventId) => {
 const sortFighterIds = (array) => {
     const fightersArray = array[0] 
     return _.map(fightersArray, fighter => fighter.id)
-} 
-
-const wait = async (ms) => {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms)
-    })
 }
 
 const getFighterList = (eventDetails) => _.map(eventDetails, details => {

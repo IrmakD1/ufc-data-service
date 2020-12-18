@@ -55,6 +55,33 @@ const getAllEventDetails = async (db) => {
     }
 }
 
+const getAllFighterRecords = async (db) => {
+    let fighterRecordsResults = []
+    
+    const fighterRecordsRef = db.collection('Fighter Records')
+
+    try {
+        const snapshot = await fighterRecordsRef.get()
+
+        if (snapshot.empty) {
+            throw new Error('Could not find any valid records')
+        }  
+
+        logger().info('Successfully retrieved Fighter Records from db')
+
+        snapshot.forEach(doc => {
+
+            const res = doc.data()
+
+            fighterRecordsResults.push(res)
+        })
+
+        return _.filter(fighterRecordsResults, fighterRecord => fighterRecord.competitor !== undefined)
+    } catch (err) {
+        throw new Error(`Could not retrieve existing records: ${err}`)
+    }
+}
+
 const addEventList = async (eventsList, db) => {
     for (const show of eventsList) {
         try {
@@ -94,10 +121,25 @@ const addFighterRecords = async (fightersRecords, db) => {
     })
 }
 
+const addFighterDetails = async (fightersDetails, db) => {
+    logger().info('Adding fighter records to the fighterDb')
+    _.forEach(fightersDetails, async (details) => {
+        try {
+            await db.collection('Fighter Details').add({...details})
+            logger().info(`Successfully added fighter record document to Fighter Details collection`)
+
+        } catch (err) {
+            logger().error(`Unable to add fighter record details to Fighter Details collection: ${err}`);
+        }
+    })
+}
+
 module.exports = {
     addEventList,
     addEventDetails,
+    addFighterDetails,
     addFighterRecords,
     getAllEventList,
-    getAllEventDetails
+    getAllEventDetails,
+    getAllFighterRecords
 }

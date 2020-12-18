@@ -1,6 +1,7 @@
 const axios = require('axios')
 const _ = require('lodash')
 const logger = require('../logger')
+const { wait } = require('../utils')
 
 const key = process.env.API_KEY
 
@@ -18,12 +19,6 @@ const getEventsList = async () => {
         logger().error(`Unable to get events from SportsRadar ${err}`);
         throw err;
     }
-}
-
-const wait = async (ms) => {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms)
-    })
 }
 
 const getEventDetails = async (events) => {
@@ -57,7 +52,7 @@ const getFighterRecord = async (id) => {
     try {
         const { data } = await axios.get(url)
     
-        logger().info(`Successfully got ${id} fight record`)
+        logger().info(`Successfully got ${id} fighter record`)
 
         return data
 
@@ -66,9 +61,24 @@ const getFighterRecord = async (id) => {
     }
 } 
 
+const getFighterDetails = async (fighterId) => {
+    const url = `http://api.sportradar.us/ufc/trial/v2/en/competitors/${fighterId}/summaries.json?api_key=${key}`
+    try {
+        const { data } = await axios.get(url)
+    
+        logger().info(`Successfully got ${fighterId} fighter details`)
+
+        return data
+
+    } catch (err) {
+        logger().error(`Unable to get fighter details from SportsRader for ${fighterId}: ${err}`);
+    }
+}
+
 
 module.exports = {
     getEventsList,
     getEventDetails,
-    getFighterRecord
+    getFighterRecord,
+    getFighterDetails
 }

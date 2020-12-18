@@ -6,9 +6,7 @@ const fighters = require('./fighters')
 
 const db = connectDb()
 
-const fighterId = !process.argv.slice(2)[0] ? process.env.FIGHTER_ID : process.argv.slice(2)[0]
-
-fighters.getFighterDetails(db, fighterId)
+fighters.getAllFighterDetails(db)
     .then(() => logger().info('All done!'))
     .catch(e => {
         logger().error(`Failed to load data to DB: "${e.message}"`);
