@@ -15,7 +15,7 @@ const getFighterDetails =  async (db, fighterId) => {
                     const res = await sportsRadar.getFighterDetails(id)
                     
                     fighterDetails.push(res)
-                    await firebase.addFighterDetails(fighterDetails, db)
+                    await firebase.addFighterDetails(fighterDetails, db, id)
                     await wait(1001)
                 } catch (err) {
                     logger().error(`Failed to get Fighter details: ${err}`)
@@ -29,7 +29,7 @@ const getFighterDetails =  async (db, fighterId) => {
             logger().info('Getting fighter details from sportsRadar')
             const res = await sportsRadar.getFighterDetails(fighterId)
             
-            await firebase.addFighterDetails(res, db)
+            await firebase.addFighterDetails(res, db, fighterId)
         } catch (err) {
             logger().error(`Failed to get Fighter details: ${err}`)
         }
