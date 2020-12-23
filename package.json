@@ -9,6 +9,7 @@
     "get-fighter-records": "node src/getFighterRecords.js",
     "get-fighter-details": "node src/getFighterDetails.js",
     "get-all-fighter-details": "node src/getAllFighterDetails.js",
+    "get-fighter-details-event": "node src/getFighterDetailsForEvent.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

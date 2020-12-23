@@ -2,6 +2,7 @@ const _ = require('lodash')
 const firebase = require('../firebase')
 const sportsRadar = require('../sportsRadar')
 const logger = require('../logger')
+const getFighterDetails = require('./getFighterDetails')
 const { wait } = require('../utils')
 
 const findEventDetails = (eventDetails, eventId) => {
@@ -44,15 +45,20 @@ const getAllRecords = async (fighterIds) => {
     return recordsArray
 } 
 
-const getFighterRecords = async (db, eventId) => {
+const getFighterRecords = async (db, eventId, details = false) => {
     try {
         const allEvents = await firebase.getAllEventDetails(db)
         const eventToSearch = findEventDetails(allEvents, eventId)
         const ListOfFighters = getFighterList(eventToSearch)
         const fighterIds = sortFighterIds(ListOfFighters)
-        const fighterRecords = await getAllRecords(fighterIds)
 
-        await firebase.addFighterRecords(fighterRecords, db)
+        if (details === true) {
+            await getFighterDetails(db, fighterIds)
+        } else {
+            const fighterRecords = await getAllRecords(fighterIds)
+    
+            await firebase.addFighterRecords(fighterRecords, db)
+        }
     } catch (err) {
         logger().error(`Error getting fighter Records: ${err}`)
     }
