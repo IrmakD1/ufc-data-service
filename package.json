@@ -6,10 +6,9 @@
   "scripts": {
     "get-events": "node src/getEvents.js",
     "get-event-details": "node src/getEventDetails.js",
-    "get-fighter-records": "node src/getFighterRecords.js",
-    "get-fighter-details": "node src/getFighterDetails.js",
-    "get-all-fighter-details": "node src/getAllFighterDetails.js",
-    "get-fighter-details-event": "node src/getFighterDetailsForEvent.js",
+    "get-single-fighter": "node src/getSingleFighterDetails.js",
+    "get-fighters-in-event": "node src/getAllFighterDetails.js",
+    "add-ranked-fighter": "node src/addRankedFighter.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

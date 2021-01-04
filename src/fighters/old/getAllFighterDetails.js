@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const firebase = require('../firebase')
+const firebase = require('../../firebase')
 
 const getFighterRecords = require('./getFighterDetails')
 

@@ -125,10 +125,12 @@ const addEventList = async (eventsList, db) => {
 const addEventDetails = async (events, db) => {
     logger().info('Adding event details to the eventDb')
     _.forEach(events, async (show) => {
+        const eventId = show.summaries[0].sport_event.sport_event_context.season.id
+        const newShow = {...show, eventId}
         try {
-            await db.collection('Event Details').add({...show})
-            logger().info(`Successfully added event document ${show.name} to Events collection`)
-
+            const docRef = db.collection('Event Details').doc(newShow.eventId)
+            await docRef.set(newShow)
+            logger().info(`Successfully added event document ${newShow.eventId} to Event Details collection`)
         } catch (err) {
             logger().error(`Unable to add event details to Event Details collection: ${err}`);
         }
@@ -160,11 +162,24 @@ const addFighterDetails = async (fightersDetails, db, fighterId) => {
     })
 }
 
+const addRankedFighter = async (fightersDetails, db) => {
+    logger().info('Adding fighter records to the rankingsDb')
+    _.forEach(fightersDetails, async (record) => {
+        try {
+            const docRef = db.collection('Rankings').doc(record.details.competitor_id)
+            await docRef.set(record)
+        } catch (err) {
+            logger().error(`Unable to add ranked fighter details to Rankings collection: ${err}`);
+        }
+    })
+}
+
 module.exports = {
     addEventList,
     addEventDetails,
     addFighterDetails,
     addFighterRecords,
+    addRankedFighter,
     getAllEventList,
     getAllEventDetails,
     getAllFighterRecords,

@@ -6,17 +6,15 @@ const fighters = require('./fighters')
 
 const db = connectDb()
 
-const eventId = !process.argv.slice(2)[0] ? process.env.EVENT_ID : process.argv.slice(2)[0]
+const fighterId = !process.argv.slice(2)[0] ? process.env.FIGHTER_ID : process.argv.slice(2)[0]
 
-fighters.getFighterRecords({ fighterId: null, eventId }, db, false)
+fighters.getFighterRecords({ fighterId, eventId: null }, db, false)
     .then(() => logger().info('All done getting records!'))
-    .then(() => fighters.getFighterRecords({ fighterId: null, eventId }, db, true))
+    .then(() => fighters.getFighterRecords({ fighterId, eventId: null }, db, true))
     .then(() => logger().info('All done getting details!'))
     .catch(e => {
         logger().error(`Failed to load data to DB: "${e.message}"`);
         process.exit(1);
     });
-
-
 
 

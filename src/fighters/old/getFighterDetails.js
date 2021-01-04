@@ -1,8 +1,8 @@
 const _ = require('lodash')
-const logger = require('../logger')
-const firebase = require('../firebase')
-const sportsRadar = require('../sportsRadar')
-const { wait } = require('../utils')
+const logger = require('../../logger')
+const firebase = require('../../firebase')
+const sportsRadar = require('../../sportsRadar')
+const { wait } = require('../../utils')
 
 const getFighterDetails =  async (db, fighterId) => {
     if (Array.isArray(fighterId)) {

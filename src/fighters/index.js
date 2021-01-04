@@ -1,5 +1,4 @@
 const getFighterRecords = require('./getFighterRecords')
-const getFighterDetails = require('./getFighterDetails')
-const getAllFighterDetails = require('./getAllFighterDetails')
+const addRankedFighter = require('./addRankedFighter')
 
-module.exports = { getFighterRecords, getFighterDetails, getAllFighterDetails }
+module.exports = { getFighterRecords, addRankedFighter }

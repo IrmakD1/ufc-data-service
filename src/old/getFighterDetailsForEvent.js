@@ -1,8 +1,8 @@
 require('dotenv').config()
 
-const logger = require('./logger')
-const connectDb = require('./store')
-const fighters = require('./fighters')
+const logger = require('../logger')
+const connectDb = require('../store')
+const fighters = require('../fighters/old')
 
 const db = connectDb()
 
