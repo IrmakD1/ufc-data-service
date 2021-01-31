@@ -9,6 +9,7 @@
     "get-single-fighter": "node src/getSingleFighterDetails.js",
     "get-fighters-in-event": "node src/getAllFighterDetails.js",
     "add-ranked-fighter": "node src/addRankedFighter.js",
+    "get-future-events": "node src/getFutureEvents.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
